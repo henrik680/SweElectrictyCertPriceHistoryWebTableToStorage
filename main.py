@@ -26,7 +26,6 @@ def hist_table_from_html(html, year):
                     .drop(0)\
                     .assign(Year=year)\
                     .rename(columns={0: 'Week', 1: 'Spot'})
-                #df.iat[0, 2] = 'Year'
                 logging.debug(df)
                 return df
 
