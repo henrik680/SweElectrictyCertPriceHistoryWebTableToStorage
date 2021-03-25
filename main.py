@@ -9,6 +9,8 @@ from urllib.request import urlopen
 
 logging.getLogger().setLevel(logging.INFO)
 
+project_name = 'RawImportSweGridAreasGeo'
+
 
 def hist_table_from_html(html, year):
     logging.debug("Started hist_table_from_html year={}".format(year))
@@ -40,7 +42,7 @@ def upload_blob_string(bucket_name, csvString, destination_blob_name):
 
 
 def run(request):
-    logging.info("Starting SweElectrictyCertPriceHistoryWebTableToStorage")
+    logging.info("Starting {}".format(project_name))
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', help='json with parameters')
     args = parser.parse_args()
@@ -55,7 +57,7 @@ def run(request):
     destination_blob_name = input_json['destination_blob_name']
     logging.info("\nbucket_name: {}\nurl: {}\ndestination_blob_name: {}".format(
        bucket_name, base_url, destination_blob_name))
-
+    # TODO add metadata handling
     df = pd.DataFrame(columns = ['Year', 'Week', 'Spot'])
     for y in [i for i in range(2005, 2022)]:
         url = '{}{}/'.format(base_url, y)
